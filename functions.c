@@ -21,6 +21,8 @@ int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, stru
 
     // Envoie de la requête avec sendto
     sendto(sock, frame, sizeof(frame), 0, (struct sockaddr *)&addr, sizeof(addr));
+    
+    printf("Execution correcte de RRQ_rqst \n");
 
     return 0;
 }

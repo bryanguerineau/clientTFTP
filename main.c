@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "functions.h"
 
 int main(int argc, char * argv[]){
@@ -7,9 +6,9 @@ int main(int argc, char * argv[]){
     //char * file = argv[2];
 
     // Test functionality
-    char * host = "srvtpinfo1.ensea.fr";
+    char * host = "127.0.0.1";
     char * file = "zeros256";
-    char * port = "69";
+    char * port = "1069";
 
     struct addrinfo hints;
     struct addrinfo * result = NULL;
@@ -29,8 +28,12 @@ int main(int argc, char * argv[]){
     if (s!= 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
         exit(EXIT_FAILURE);
+    } else {
+        printf("Execution correcte de getaddrinfo \n");
     }
 
-    RRQ_rqst(file, port, host, frame, sock, addr); 
+    RRQ_rqst(file, port, host, frame, sock, addr);
+
+
 
 }
