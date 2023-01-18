@@ -34,6 +34,8 @@ int main(int argc, char * argv[]){
 
     RRQ_rqst(file, port, host, frame, sock, addr);
 
+    RRQ_recept(sock, frame, addr);
+
 
 
 }

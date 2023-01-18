@@ -26,3 +26,18 @@ int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, stru
 
     return 0;
 }
+
+char RRQ_recept(int sock, char * frame, struct sockaddr_in addr){
+    /*
+    
+    */
+   int recept_bytes = recvfrom(sock, frame, sizeof(frame), 0, addr, sizeof(addr));
+
+   char byte2 = frame[2];
+   char byte3 = frame[3];
+   short blockNum = (byte2 << 8) | byte3;
+
+   printf("Execution correcte de RRQ_recept %d \n", recept_bytes);
+   printf("Numéro de block : %d\n", blockNum);
+
+}
