@@ -31,6 +31,6 @@ int main(int argc, char * argv[]){
         exit(EXIT_FAILURE);
     }
 
-    RRQ_rqst(file, port, &addr, frame, sock, addr); 
+    RRQ_rqst(file, port, host, frame, sock, addr); 
 
 }
