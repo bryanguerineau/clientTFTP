@@ -13,3 +13,5 @@
 // Variables Globales
 #define BUFFER_SIZE 512
 
+// Functions
+int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, struct sockaddr_in addr);
