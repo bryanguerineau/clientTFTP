@@ -15,4 +15,4 @@
 
 // Functions
 int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, struct sockaddr_in addr);
-char RRQ_recept(int sock, char * frame, struct sockaddr_in addr);
+int RRQ_recept(int sock, struct sockaddr_in addr, struct addrinfo *result);

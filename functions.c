@@ -10,6 +10,7 @@ int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, stru
     | Opcode | Filename  |  0   |    Mode    |   0
     ------------------------------------------------
     */ 
+    
     frame[0] = 0x00;
     frame[1] = 0x01; // '1' pour effetctuer une requête
     strcpy((char *)frame + 2, file);
@@ -19,25 +20,32 @@ int RRQ_rqst(char * file, char * port, char * host, char * frame, int sock, stru
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
 
+    if (sock < 0) {
+        perror("Erreur : socket");
+        return EXIT_FAILURE;
+    }
     // Envoie de la requête avec sendto
-    sendto(sock, frame, sizeof(frame), 0, (struct sockaddr *)&addr, sizeof(addr));
+    int send_t = sendto(sock, frame, sizeof(frame), 0, (struct sockaddr *)&addr, sizeof(addr));
     
     printf("Execution correcte de RRQ_rqst \n");
 
     return 0;
 }
 
-char RRQ_recept(int sock, char * frame, struct sockaddr_in addr){
-    /*
+
+int RRQ_recept(int sock, struct sockaddr_in addr, struct addrinfo *result){
     
-    */
-   int recept_bytes = recvfrom(sock, frame, sizeof(frame), 0, &addr, sizeof(addr));
+    char data[BUFFER_SIZE];
 
-   char byte2 = frame[2];
-   char byte3 = frame[3];
-   short blockNum = (byte2 << 8) | byte3;
+    int recept_bytes = recvfrom(sock, data, sizeof(data), 0, result->ai_addr, &(result->ai_addrlen));
 
-   printf("Execution correcte de RRQ_recept %d \n", recept_bytes);
-   printf("Numéro de block : %d\n", blockNum);
+    unsigned char byte2 = data[2];
+    unsigned char byte3 = data[3];
+    unsigned short blockNum = (byte2 << 8) | byte3;
 
+    printf("Execution correcte de RRQ_recept %d \n", recept_bytes);
+    printf("Numéro de block : %d\n", blockNum);
+    fprintf(stderr,"Opcode: %d,%d  Block %d,%d\nTaille des donnés: %d\n",data[0],data[1],data[2],data[3],recept_bytes-4);
+
+    return EXIT_SUCCESS;
 }
