@@ -31,7 +31,7 @@ char RRQ_recept(int sock, char * frame, struct sockaddr_in addr){
     /*
     
     */
-   int recept_bytes = recvfrom(sock, frame, sizeof(frame), 0, addr, sizeof(addr));
+   int recept_bytes = recvfrom(sock, frame, sizeof(frame), 0, &addr, sizeof(addr));
 
    char byte2 = frame[2];
    char byte3 = frame[3];
